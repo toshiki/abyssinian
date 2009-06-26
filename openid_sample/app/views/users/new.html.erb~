@@ -1,0 +1,5 @@
+<% form_for(create_users_path, :html => {:method => :put}) do |f| %>
+  <%= f.text_field 'nickname' %>
+  <%= submit_tag 'Create', :disable_with => "Create…" %>
+<% end %>
+

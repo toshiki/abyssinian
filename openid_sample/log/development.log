@@ -1,0 +1,1010 @@
+  [4;36;1mSQL (0.5ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (3.0ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (2.2ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to AddOpenIdAuthenticationTables (20090624055035)
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mCREATE TABLE "open_id_authentication_associations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "issued" integer, "lifetime" integer, "handle" varchar(255), "assoc_type" varchar(255), "server_url" blob, "secret" blob) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mCREATE TABLE "open_id_authentication_nonces" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "timestamp" integer NOT NULL, "server_url" varchar(255), "salt" varchar(255) NOT NULL) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20090624055035')[0m
+  [4;35;1mSQL (0.5ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("open_id_authentication_associations")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("open_id_authentication_nonces")[0m
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-06-24 14:59:58) [GET]
+
+ActionController::RoutingError (No route matches "/session/new" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-24 15:00:05) [GET]
+Rendering sessions/new
+
+ActionView::TemplateError (undefined local variable or method `session_path' for #<ActionView::Base:0x33241c0>) on line #1 of app/views/sessions/new.html.erb:
+1: <% form_tag(session_path) do %>
+2:   <label for="openid_url">OpenID„Ç¢„Ç´„Ç¶„É≥„ÉàÂêç„ÇíÂÖ•Âäõ„Åó„Å¶„Åè„Å†„Åï„ÅÑ:</label>
+3:   <%= text_field_tag "openid_url" %>
+4:   <%= submit_tag 'Sign in', :disable_with => "Signing in‚Ä¶" %>
+
+    app/views/sessions/new.html.erb:1
+
+Rendered rescues/_trace (42.7ms)
+Rendered rescues/_request_and_response (1.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-24 15:00:24) [GET]
+Rendering sessions/new
+Completed in 6ms (View: 5, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-24 15:00:29) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/accounts/o8/id", "commit"=>"Sign in", "authenticity_token"=>"V5biYTXiXQ8T4thax0VQS+TeNHzl+jCaWgdnhoeCsH4="}
+  [4;36;1mOpenIdAuthentication::Association Load (0.2ms)[0m   [0;1mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+  [4;35;1mOpenIdAuthentication::Association Delete all (0.8ms)[0m   [0mDELETE FROM "open_id_authentication_associations" WHERE (server_url = 'https://www.google.com/accounts/o8/ud' AND handle = 'AOQobUfvRXHQMYY9CsA19w1pYVEndaNGyy6jMouG6bH-edtdQZrfS9wy') [0m
+  [4;36;1mOpenIdAuthentication::Association Create (1.1ms)[0m   [0;1mINSERT INTO "open_id_authentication_associations" ("lifetime", "handle", "server_url", "issued", "assoc_type", "secret") VALUES(46800, 'AOQobUfvRXHQMYY9CsA19w1pYVEndaNGyy6jMouG6bH-edtdQZrfS9wy', 'https://www.google.com/accounts/o8/ud', 1245823230, 'HMAC-SHA1', '\`ÆNêAΩp7áÃƒ%25º›˘Y:')[0m
+Redirected to https://www.google.com/accounts/o8/ud?openid.assoc_handle=AOQobUfvRXHQMYY9CsA19w1pYVEndaNGyy6jMouG6bH-edtdQZrfS9wy&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.realm=http%3A%2F%2Flocalhost%3A3000&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete
+Completed in 941ms (DB: 2) | 302 Found [http://localhost/sessions]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-24 15:00:34) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"9nOkPSuVfI7hb8nkXjmP7qPGoHk=", "openid.response_nonce"=>"2009-06-24T06:00:37Za20NtzgscyWt2A", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfvRXHQMYY9CsA19w1pYVEndaNGyy6jMouG6bH-edtdQZrfS9wy", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+
+ActionController::UnknownAction (No action responded to complete. Actions: create, destroy, and new):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-24 15:01:56) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"ilVkjNOQ8BzaixEAzqDIdwYdBNk=", "openid.response_nonce"=>"2009-06-24T06:01:59ZCGT34qVVjy3dQg", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfvRXHQMYY9CsA19w1pYVEndaNGyy6jMouG6bH-edtdQZrfS9wy", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+
+ActionController::UnknownAction (No action responded to complete. Actions: create, destroy, and new):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-24 15:02:07) [GET]
+Rendering sessions/new
+Completed in 3ms (View: 1, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-24 15:02:14) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/accounts/o8/id", "commit"=>"Sign in", "authenticity_token"=>"V5biYTXiXQ8T4thax0VQS+TeNHzl+jCaWgdnhoeCsH4="}
+  [4;35;1mOpenIdAuthentication::Association Load (0.8ms)[0m   [0mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+Redirected to https://www.google.com/accounts/o8/ud?openid.assoc_handle=AOQobUfvRXHQMYY9CsA19w1pYVEndaNGyy6jMouG6bH-edtdQZrfS9wy&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.realm=http%3A%2F%2Flocalhost%3A3000&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete
+Completed in 445ms (DB: 1) | 302 Found [http://localhost/sessions]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-24 15:02:18) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"0o+yDv4qdNWQMKksBE/wEjN5/zg=", "openid.response_nonce"=>"2009-06-24T06:02:21ZvR0Tl9g5NRADrQ", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfvRXHQMYY9CsA19w1pYVEndaNGyy6jMouG6bH-edtdQZrfS9wy", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+
+ActionController::UnknownAction (No action responded to complete. Actions: create, destroy, and new):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-24 15:03:47) [GET]
+
+ActiveRecord::StatementInvalid (Could not find table 'users'):
+  app/controllers/users_controller.rb:6:in `new'
+  app/controllers/users_controller.rb:6:in `new'
+
+Rendered rescues/_trace (109.9ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.9ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to AddOpenIdAuthenticationTables (20090624055035)
+Migrating to CreateUsers (20090624055118)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mselect sqlite_version(*)[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "nickname" varchar(255), "identify_url" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20090624055118')[0m
+  [4;35;1mSQL (0.5ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("open_id_authentication_associations")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("open_id_authentication_nonces")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("users")[0m
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-24 15:04:19) [GET]
+
+ActionView::MissingTemplate (Missing template users/new.erb in view path app/views):
+  
+
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-06-24 20:20:25) [GET]
+
+ActionController::RoutingError (No route matches "/session/new" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-24 20:20:29) [GET]
+Rendering sessions/new
+Completed in 9ms (View: 7, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-24 20:20:36) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/accounts/o8/id", "commit"=>"Sign in", "authenticity_token"=>"V5biYTXiXQ8T4thax0VQS+TeNHzl+jCaWgdnhoeCsH4="}
+  [4;36;1mOpenIdAuthentication::Association Load (0.4ms)[0m   [0;1mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+Redirected to https://www.google.com/accounts/o8/ud?openid.assoc_handle=AOQobUfvRXHQMYY9CsA19w1pYVEndaNGyy6jMouG6bH-edtdQZrfS9wy&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.realm=http%3A%2F%2Flocalhost%3A3000&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete
+Completed in 664ms (DB: 0) | 302 Found [http://localhost/sessions]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-24 20:20:44) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"2iz0qwrwN7j09TgWQKCecM/vlA8=", "openid.response_nonce"=>"2009-06-24T11:20:47ZX_Dat5PgXYlfYQ", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfvRXHQMYY9CsA19w1pYVEndaNGyy6jMouG6bH-edtdQZrfS9wy", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+
+ActionController::UnknownAction (No action responded to complete. Actions: create, destroy, and new):
+  
+
+Rendering rescues/layout (not_found)
+  [4;36;1mSQL (0.7ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (2.6ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (2.3ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to AddOpenIdAuthenticationTables (20090624055035)
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.6ms)[0m   [0mCREATE TABLE "open_id_authentication_associations" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "issued" integer, "lifetime" integer, "handle" varchar(255), "assoc_type" varchar(255), "server_url" blob, "secret" blob) [0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mCREATE TABLE "open_id_authentication_nonces" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "timestamp" integer NOT NULL, "server_url" varchar(255), "salt" varchar(255) NOT NULL) [0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20090624055035')[0m
+Migrating to CreateUsers (20090624055118)
+  [4;35;1mSQL (0.6ms)[0m   [0mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "nickname" varchar(255), "identity_url" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20090624055118')[0m
+  [4;35;1mSQL (0.5ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.4ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("open_id_authentication_associations")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("open_id_authentication_nonces")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("users")[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-25 15:12:23) [GET]
+Rendering sessions/new
+Completed in 66ms (View: 64, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-25 15:12:41) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/account/o8/id", "commit"=>"Sign in", "authenticity_token"=>"vrdAoejpv4bxdsBJpXda3cG6CaiRo3NWOR9X0L2zuRg="}
+[OPENID] No usable OpenID services were found for "https://www.google.com/account/o8/id"
+
+NoMethodError (undefined method `failed_login' for #<SessionsController:0x32eb988>):
+  app/controllers/sessions_controller.rb:15:in `create'
+  app/controllers/sessions_controller.rb:6:in `create'
+
+Rendered rescues/_trace (36.3ms)
+Rendered rescues/_request_and_response (1.2ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-25 15:14:23) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/account/o8/id", "commit"=>"Sign in", "authenticity_token"=>"vrdAoejpv4bxdsBJpXda3cG6CaiRo3NWOR9X0L2zuRg="}
+[OPENID] No usable OpenID services were found for "https://www.google.com/account/o8/id"
+
+NoMethodError (undefined method `failed_login' for #<SessionsController:0x3374ea4>):
+  app/controllers/sessions_controller.rb:15:in `create'
+  app/controllers/sessions_controller.rb:6:in `create'
+
+Rendered rescues/_trace (36.6ms)
+Rendered rescues/_request_and_response (1.2ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-25 15:14:41) [GET]
+Rendering sessions/new
+Completed in 8ms (View: 7, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-25 15:14:43) [GET]
+Rendering sessions/new
+Completed in 3ms (View: 1, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-25 15:14:50) [GET]
+Rendering sessions/new
+Completed in 3ms (View: 1, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-25 15:14:58) [POST]
+  Parameters: {"openid_url"=>"https://id.mixi.jp/", "commit"=>"Sign in", "authenticity_token"=>"vrdAoejpv4bxdsBJpXda3cG6CaiRo3NWOR9X0L2zuRg="}
+[OPENID] No usable OpenID services were found for "https://id.mixi.jp/"
+
+NoMethodError (undefined method `failed_login' for #<SessionsController:0x3094dec>):
+  app/controllers/sessions_controller.rb:15:in `create'
+  app/controllers/sessions_controller.rb:6:in `create'
+
+Rendered rescues/_trace (35.6ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-25 15:15:57) [GET]
+Rendering sessions/new
+Completed in 8ms (View: 6, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-25 15:16:01) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/account/o8/id", "commit"=>"Sign in", "authenticity_token"=>"vrdAoejpv4bxdsBJpXda3cG6CaiRo3NWOR9X0L2zuRg="}
+[OPENID] No usable OpenID services were found for "https://www.google.com/account/o8/id"
+
+NoMethodError (undefined method `failed_login' for #<SessionsController:0x330c188>):
+  app/controllers/sessions_controller.rb:15:in `create'
+  app/controllers/sessions_controller.rb:6:in `create'
+
+Rendered rescues/_trace (36.2ms)
+Rendered rescues/_request_and_response (1.8ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-25 15:28:48) [GET]
+Rendering sessions/new
+Completed in 9ms (View: 7, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-25 15:28:55) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/account/o8/id", "commit"=>"Sign in", "authenticity_token"=>"vrdAoejpv4bxdsBJpXda3cG6CaiRo3NWOR9X0L2zuRg="}
+[OPENID] No usable OpenID services were found for "https://www.google.com/account/o8/id"
+
+NoMethodError (undefined method `failed_login' for #<SessionsController:0x330c188>):
+  app/controllers/sessions_controller.rb:15:in `create'
+  app/controllers/sessions_controller.rb:6:in `create'
+
+Rendered rescues/_trace (37.4ms)
+Rendered rescues/_request_and_response (1.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-25 15:29:55) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/account/o8/id", "commit"=>"Sign in", "authenticity_token"=>"vrdAoejpv4bxdsBJpXda3cG6CaiRo3NWOR9X0L2zuRg="}
+[OPENID] No usable OpenID services were found for "https://www.google.com/account/o8/id"
+Rendering sessions/create
+Completed in 930ms (View: 7, DB: 0) | 200 OK [http://localhost/sessions]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-25 15:32:43) [GET]
+Rendering sessions/new
+Completed in 101ms (View: 100, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-25 15:33:03) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/accounts/o8/id", "commit"=>"Sign in", "authenticity_token"=>"J0gg0GzKkQleAO1UZrBsCBePW85uYYyvgaOTheyrPIc="}
+  [4;36;1mOpenIdAuthentication::Association Load (0.3ms)[0m   [0;1mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+  [4;35;1mOpenIdAuthentication::Association Delete all (0.8ms)[0m   [0mDELETE FROM "open_id_authentication_associations" WHERE (server_url = 'https://www.google.com/accounts/o8/ud' AND handle = 'AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9') [0m
+  [4;36;1mOpenIdAuthentication::Association Create (0.5ms)[0m   [0;1mINSERT INTO "open_id_authentication_associations" ("lifetime", "handle", "server_url", "issued", "assoc_type", "secret") VALUES(46799, 'AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9', 'https://www.google.com/accounts/o8/ud', 1245911584, 'HMAC-SHA1', 'S3HYMÜ–Lg»TÂ€™‰ƒ~^S')[0m
+Redirected to https://www.google.com/accounts/o8/ud?openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.realm=http%3A%2F%2Flocalhost%3A3000&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete
+Completed in 1115ms (DB: 2) | 302 Found [http://localhost/sessions]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-25 15:33:15) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"YiDUd/oljkDurM0cYqXQ5bzXoA8=", "openid.response_nonce"=>"2009-06-25T06:33:20ZrrhzJJzgagtFZg", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+
+ActionController::UnknownAction (No action responded to complete. Actions: create, destroy, and new):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-25 19:11:16) [GET]
+Rendering sessions/new
+Completed in 37ms (View: 35, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-25 19:12:02) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/accounts/o8/id", "commit"=>"Sign in", "authenticity_token"=>"J0gg0GzKkQleAO1UZrBsCBePW85uYYyvgaOTheyrPIc="}
+  [4;36;1mOpenIdAuthentication::Association Load (0.4ms)[0m   [0;1mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+Redirected to https://www.google.com/accounts/o8/ud?openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.realm=http%3A%2F%2Flocalhost%3A3000&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete
+Completed in 574ms (DB: 0) | 302 Found [http://localhost/sessions]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-25 19:12:17) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"hqGvGr4ykFvHf9Nv8bxnxNM584U=", "openid.response_nonce"=>"2009-06-25T10:12:22ZifHb5WyU45w_ow", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+
+ActionController::UnknownAction (No action responded to complete. Actions: create, destroy, and new):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-25 19:50:32) [GET]
+Rendering sessions/new
+Completed in 51ms (View: 49, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-25 19:50:36) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/accounts/o8/id", "commit"=>"Sign in", "authenticity_token"=>"nkzMvFunmX0wu7xEqixBVEcSVD0h/cBtG5a97STXtZU="}
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of ActiveRecord::Base.
+The error occurred while evaluating nil.[]):
+  app/controllers/sessions_controller.rb:22:in `create'
+
+Rendered rescues/_trace (34.5ms)
+Rendered rescues/_request_and_response (1.2ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-25 19:51:39) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/accounts/o8/id", "commit"=>"Sign in", "authenticity_token"=>"nkzMvFunmX0wu7xEqixBVEcSVD0h/cBtG5a97STXtZU="}
+
+NoMethodError (You have a nil object when you didn't expect it!
+You might have expected an instance of ActiveRecord::Base.
+The error occurred while evaluating nil.[]):
+  app/controllers/sessions_controller.rb:22:in `create'
+
+Rendered rescues/_trace (36.7ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-25 19:52:05) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/accounts/o8/id", "commit"=>"Sign in", "authenticity_token"=>"nkzMvFunmX0wu7xEqixBVEcSVD0h/cBtG5a97STXtZU="}
+  [4;36;1mOpenIdAuthentication::Association Load (0.4ms)[0m   [0;1mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+Redirected to https://www.google.com/accounts/o8/ud?openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.realm=http%3A%2F%2Flocalhost%3A3000&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete
+Completed in 442ms (DB: 0) | 302 Found [http://localhost/sessions]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-25 19:52:17) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"/r95SSV9jaB5WStIKiR64G/EEss=", "openid.response_nonce"=>"2009-06-25T10:52:22ZRA0QgCu0H3w_XQ", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+  [4;35;1mOpenIdAuthentication::Association Load (0.7ms)[0m   [0mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_associations"."handle" = 'AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9') [0m
+  [4;36;1mOpenIdAuthentication::Nonce Load (0.3ms)[0m   [0;1mSELECT * FROM "open_id_authentication_nonces" WHERE ("open_id_authentication_nonces"."timestamp" = 1245927142 AND "open_id_authentication_nonces"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_nonces"."salt" = 'RA0QgCu0H3w_XQ') LIMIT 1[0m
+  [4;35;1mOpenIdAuthentication::Nonce Create (0.6ms)[0m   [0mINSERT INTO "open_id_authentication_nonces" ("salt", "server_url", "timestamp") VALUES('RA0QgCu0H3w_XQ', 'https://www.google.com/accounts/o8/ud', 1245927142)[0m
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."identity_url" = 'https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk') LIMIT 1[0m
+Redirected to http://localhost:3000/user/new
+Completed in 579ms (DB: 2) | 302 Found [http://localhost/sessions/complete?openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2009-06-25T10%3A52%3A22ZRA0QgCu0H3w_XQ&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete&openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=%2Fr95SSV9jaB5WStIKiR64G%2FEEss%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-25 19:52:17) [GET]
+Rendering users/new
+Completed in 28ms (View: 22, DB: 0) | 200 OK [http://localhost/user/new]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-06-25 19:52:24) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"nkzMvFunmX0wu7xEqixBVEcSVD0h/cBtG5a97STXtZU=", "/user"=>{"nickname"=>"toshiki"}}
+
+ActionController::MethodNotAllowed (Only get requests are allowed.):
+  
+
+Rendered rescues/_trace (25.4ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (method_not_allowed)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-25 19:54:06) [GET]
+Rendering sessions/new
+Completed in 3ms (View: 1, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-25 19:54:10) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/account/o8/id", "commit"=>"Sign in", "authenticity_token"=>"J30U3SgLjFLiJzpi2Y1aki5289M7jj8diK5SoQrB/1E="}
+[OPENID] No usable OpenID services were found for "https://www.google.com/account/o8/id"
+
+NoMethodError (undefined method `failed_login' for #<SessionsController:0x30e678c>):
+  app/controllers/sessions_controller.rb:27:in `create'
+  app/controllers/sessions_controller.rb:23:in `create'
+
+Rendered rescues/_trace (108.3ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-25 19:54:24) [GET]
+Rendering sessions/new
+Completed in 3ms (View: 1, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-25 19:54:40) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/accounts/o8/id", "commit"=>"Sign in", "authenticity_token"=>"J30U3SgLjFLiJzpi2Y1aki5289M7jj8diK5SoQrB/1E="}
+  [4;35;1mOpenIdAuthentication::Association Load (0.8ms)[0m   [0mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+Redirected to https://www.google.com/accounts/o8/ud?openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.realm=http%3A%2F%2Flocalhost%3A3000&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete
+Completed in 428ms (DB: 1) | 302 Found [http://localhost/sessions]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-25 19:54:50) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"fdCHwOKmDGT1kKzWRiYiv6VuDEk=", "openid.response_nonce"=>"2009-06-25T10:54:56Zy4rtfx4VOvgkXQ", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+  [4;36;1mOpenIdAuthentication::Association Load (0.7ms)[0m   [0;1mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_associations"."handle" = 'AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9') [0m
+  [4;35;1mOpenIdAuthentication::Nonce Load (0.2ms)[0m   [0mSELECT * FROM "open_id_authentication_nonces" WHERE ("open_id_authentication_nonces"."timestamp" = 1245927296 AND "open_id_authentication_nonces"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_nonces"."salt" = 'y4rtfx4VOvgkXQ') LIMIT 1[0m
+  [4;36;1mOpenIdAuthentication::Nonce Create (0.4ms)[0m   [0;1mINSERT INTO "open_id_authentication_nonces" ("salt", "server_url", "timestamp") VALUES('y4rtfx4VOvgkXQ', 'https://www.google.com/accounts/o8/ud', 1245927296)[0m
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."identity_url" = 'https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk') LIMIT 1[0m
+Redirected to http://localhost:3000/user/new
+Completed in 268ms (DB: 2) | 302 Found [http://localhost/sessions/complete?openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2009-06-25T10%3A54%3A56Zy4rtfx4VOvgkXQ&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete&openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=fdCHwOKmDGT1kKzWRiYiv6VuDEk%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-25 19:54:51) [GET]
+Rendering users/new
+Completed in 9ms (View: 4, DB: 0) | 200 OK [http://localhost/user/new]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-06-25 19:54:54) [POST]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"J30U3SgLjFLiJzpi2Y1aki5289M7jj8diK5SoQrB/1E=", "/user"=>{"nickname"=>"toshiki"}}
+
+ActionController::MethodNotAllowed (Only get requests are allowed.):
+  
+
+Rendered rescues/_trace (26.0ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (method_not_allowed)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-25 19:56:38) [GET]
+Rendering sessions/new
+Completed in 4ms (View: 2, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-25 19:56:55) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/accounts/o8/id", "commit"=>"Sign in", "authenticity_token"=>"J30U3SgLjFLiJzpi2Y1aki5289M7jj8diK5SoQrB/1E="}
+  [4;36;1mOpenIdAuthentication::Association Load (0.8ms)[0m   [0;1mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+Redirected to https://www.google.com/accounts/o8/ud?openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.realm=http%3A%2F%2Flocalhost%3A3000&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete
+Completed in 451ms (DB: 1) | 302 Found [http://localhost/sessions]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-25 19:56:59) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"4mB0y+qJFDk2B9QU0mnDbdr72HY=", "openid.response_nonce"=>"2009-06-25T10:57:04Zy3S8CMdQiYn_9g", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+  [4;35;1mOpenIdAuthentication::Association Load (0.7ms)[0m   [0mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_associations"."handle" = 'AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9') [0m
+  [4;36;1mOpenIdAuthentication::Nonce Load (0.2ms)[0m   [0;1mSELECT * FROM "open_id_authentication_nonces" WHERE ("open_id_authentication_nonces"."timestamp" = 1245927424 AND "open_id_authentication_nonces"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_nonces"."salt" = 'y3S8CMdQiYn_9g') LIMIT 1[0m
+  [4;35;1mOpenIdAuthentication::Nonce Create (0.4ms)[0m   [0mINSERT INTO "open_id_authentication_nonces" ("salt", "server_url", "timestamp") VALUES('y3S8CMdQiYn_9g', 'https://www.google.com/accounts/o8/ud', 1245927424)[0m
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."identity_url" = 'https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk') LIMIT 1[0m
+Redirected to http://localhost:3000/user/new
+Completed in 539ms (DB: 1) | 302 Found [http://localhost/sessions/complete?openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2009-06-25T10%3A57%3A04Zy3S8CMdQiYn_9g&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete&openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=4mB0y%2BqJFDk2B9QU0mnDbdr72HY%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-25 19:56:59) [GET]
+Rendering users/new
+ERROR: compiling _run_erb_app47views47users47new46html46erb RAISED compile error
+/Users/toshiki/workspace/develop/personal/railsapp/openid_sample/app/views/users/new.html.erb:1: syntax error, unexpected kDO, expecting ')'
+... :html => {:method => :put} do |f| ; @output_buffer.concat "...
+                              ^
+/Users/toshiki/workspace/develop/personal/railsapp/openid_sample/app/views/users/new.html.erb:7: syntax error, unexpected kENSURE, expecting $end
+Function body:           def _run_erb_app47views47users47new46html46erb(local_assigns)
+            old_output_buffer = output_buffer;;@output_buffer = '';  __in_erb_template=true ;  form_for(user_path, :html => {:method => :put} do |f| ; @output_buffer.concat "\n  "
+; @output_buffer.concat(( f.text_field 'nickname' ).to_s); @output_buffer.concat "\n  "
+; @output_buffer.concat(( submit_tag 'Create', :disable_with => "Create‚Ä¶" ).to_s); @output_buffer.concat "\n"
+;  end ; @output_buffer.concat "\n\n"
+
+; @output_buffer
+          ensure
+            self.output_buffer = old_output_buffer
+          end
+Backtrace: /Users/toshiki/workspace/develop/personal/railsapp/openid_sample/app/views/users/new.html.erb:7:in `compile!'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_view/renderable.rb:61:in `compile'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_view/renderable.rb:28:in `render'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_view/template.rb:194:in `render_template'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_view/base.rb:260:in `render'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/base.rb:1241:in `render_for_file'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/base.rb:937:in `render_without_benchmark'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/benchmarking.rb:51:in `render'
+/opt/local/lib/ruby/gems/1.8/gems/activesupport-2.3.2/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/opt/local/lib/ruby/1.8/benchmark.rb:308:in `realtime'
+/opt/local/lib/ruby/gems/1.8/gems/activesupport-2.3.2/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/benchmarking.rb:51:in `render'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/base.rb:1317:in `default_render'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/base.rb:1323:in `perform_action_without_filters'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/filters.rb:617:in `call_filters'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/filters.rb:610:in `perform_action_without_benchmark'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/opt/local/lib/ruby/gems/1.8/gems/activesupport-2.3.2/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/opt/local/lib/ruby/1.8/benchmark.rb:308:in `realtime'
+/opt/local/lib/ruby/gems/1.8/gems/activesupport-2.3.2/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/benchmarking.rb:68:in `perform_action_without_rescue'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/rescue.rb:160:in `perform_action_without_flash'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/flash.rb:141:in `perform_action'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/base.rb:523:in `send'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/base.rb:523:in `process_without_filters'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/filters.rb:606:in `process'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/base.rb:391:in `process'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/base.rb:386:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/routing/route_set.rb:433:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/dispatcher.rb:88:in `dispatch'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/dispatcher.rb:111:in `_call'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/dispatcher.rb:82:in `initialize'
+/opt/local/lib/ruby/gems/1.8/gems/activerecord-2.3.2/lib/active_record/query_cache.rb:29:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/activerecord-2.3.2/lib/active_record/query_cache.rb:29:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/activerecord-2.3.2/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+/opt/local/lib/ruby/gems/1.8/gems/activerecord-2.3.2/lib/active_record/query_cache.rb:9:in `cache'
+/opt/local/lib/ruby/gems/1.8/gems/activerecord-2.3.2/lib/active_record/query_cache.rb:28:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/activerecord-2.3.2/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/rack-1.0.0/lib/rack/head.rb:9:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/rack-1.0.0/lib/rack/methodoverride.rb:24:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/params_parser.rb:15:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/rewindable_input.rb:25:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/session/cookie_store.rb:93:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/reloader.rb:9:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/failsafe.rb:11:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/rack-1.0.0/lib/rack/lock.rb:11:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/rack-1.0.0/lib/rack/lock.rb:11:in `synchronize'
+/opt/local/lib/ruby/gems/1.8/gems/rack-1.0.0/lib/rack/lock.rb:11:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/actionpack-2.3.2/lib/action_controller/dispatcher.rb:106:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/rails-2.3.2/lib/rails/rack/static.rb:31:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/rack-1.0.0/lib/rack/urlmap.rb:46:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/rack-1.0.0/lib/rack/urlmap.rb:40:in `each'
+/opt/local/lib/ruby/gems/1.8/gems/rack-1.0.0/lib/rack/urlmap.rb:40:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/rails-2.3.2/lib/rails/rack/log_tailer.rb:17:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/rack-1.0.0/lib/rack/content_length.rb:13:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/rack-1.0.0/lib/rack/chunked.rb:15:in `call'
+/opt/local/lib/ruby/gems/1.8/gems/rack-1.0.0/lib/rack/handler/mongrel.rb:61:in `process'
+/opt/local/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:159:in `process_client'
+/opt/local/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:158:in `each'
+/opt/local/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:158:in `process_client'
+/opt/local/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `run'
+/opt/local/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `initialize'
+/opt/local/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `new'
+/opt/local/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:285:in `run'
+/opt/local/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `initialize'
+/opt/local/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `new'
+/opt/local/lib/ruby/gems/1.8/gems/mongrel-1.1.5/lib/mongrel.rb:268:in `run'
+/opt/local/lib/ruby/gems/1.8/gems/rack-1.0.0/lib/rack/handler/mongrel.rb:34:in `run'
+/opt/local/lib/ruby/gems/1.8/gems/rails-2.3.2/lib/commands/server.rb:111
+/opt/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `gem_original_require'
+/opt/local/lib/ruby/site_ruby/1.8/rubygems/custom_require.rb:31:in `require'
+script/server:3
+
+ActionView::TemplateError (compile error
+/Users/toshiki/workspace/develop/personal/railsapp/openid_sample/app/views/users/new.html.erb:1: syntax error, unexpected kDO, expecting ')'
+... :html => {:method => :put} do |f| ; @output_buffer.concat "...
+                              ^
+/Users/toshiki/workspace/develop/personal/railsapp/openid_sample/app/views/users/new.html.erb:7: syntax error, unexpected kENSURE, expecting $end) on line #1 of app/views/users/new.html.erb:
+1: <% form_for(user_path, :html => {:method => :put} do |f| %>
+2:   <%= f.text_field 'nickname' %>
+3:   <%= submit_tag 'Create', :disable_with => "Create‚Ä¶" %>
+4: <% end %>
+
+    app/views/users/new.html.erb:7:in `compile!'
+
+Rendered rescues/_trace (40.3ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-25 19:57:17) [GET]
+Rendering users/new
+Completed in 10ms (View: 5, DB: 0) | 200 OK [http://localhost/user/new]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-06-25 19:57:20) [PUT]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"J30U3SgLjFLiJzpi2Y1aki5289M7jj8diK5SoQrB/1E=", "/user"=>{"nickname"=>"tsk"}}
+
+ActionController::MethodNotAllowed (Only get requests are allowed.):
+  
+
+Rendered rescues/_trace (27.0ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (method_not_allowed)
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-25 20:00:27) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"EH8AgjQjgDr9wHt7On/jx0d0sBA=", "openid.response_nonce"=>"2009-06-25T11:00:32Za-VeCYS56uHUUQ", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+  [4;35;1mOpenIdAuthentication::Association Load (0.7ms)[0m   [0mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_associations"."handle" = 'AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9') [0m
+  [4;36;1mOpenIdAuthentication::Nonce Load (0.2ms)[0m   [0;1mSELECT * FROM "open_id_authentication_nonces" WHERE ("open_id_authentication_nonces"."timestamp" = 1245927632 AND "open_id_authentication_nonces"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_nonces"."salt" = 'a-VeCYS56uHUUQ') LIMIT 1[0m
+  [4;35;1mOpenIdAuthentication::Nonce Create (0.4ms)[0m   [0mINSERT INTO "open_id_authentication_nonces" ("salt", "server_url", "timestamp") VALUES('a-VeCYS56uHUUQ', 'https://www.google.com/accounts/o8/ud', 1245927632)[0m
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."identity_url" = 'https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk') LIMIT 1[0m
+Redirected to http://localhost:3000/user/new
+Completed in 479ms (DB: 1) | 302 Found [http://localhost/sessions/complete?openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2009-06-25T11%3A00%3A32Za-VeCYS56uHUUQ&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete&openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=EH8AgjQjgDr9wHt7On%2Fjx0d0sBA%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-25 20:00:28) [GET]
+Rendering users/new
+Completed in 87ms (View: 4, DB: 0) | 200 OK [http://localhost/user/new]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-06-25 20:00:30) [PUT]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"J30U3SgLjFLiJzpi2Y1aki5289M7jj8diK5SoQrB/1E=", "/user/create"=>{"nickname"=>"toshiki"}}
+
+ActionController::MethodNotAllowed (Only get requests are allowed.):
+  
+
+Rendered rescues/_trace (27.6ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (method_not_allowed)
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-25 20:00:55) [GET]
+Rendering users/new
+Completed in 8ms (View: 2, DB: 0) | 200 OK [http://localhost/user/new]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-25 20:00:59) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"ai2gtaoTaB7c+hXVWFNys9uSGqQ=", "openid.response_nonce"=>"2009-06-25T11:01:05ZSEMVV_bmjJn4zQ", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+  [4;35;1mOpenIdAuthentication::Association Load (0.7ms)[0m   [0mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_associations"."handle" = 'AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9') [0m
+  [4;36;1mOpenIdAuthentication::Nonce Load (0.2ms)[0m   [0;1mSELECT * FROM "open_id_authentication_nonces" WHERE ("open_id_authentication_nonces"."timestamp" = 1245927665 AND "open_id_authentication_nonces"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_nonces"."salt" = 'SEMVV_bmjJn4zQ') LIMIT 1[0m
+  [4;35;1mOpenIdAuthentication::Nonce Create (0.4ms)[0m   [0mINSERT INTO "open_id_authentication_nonces" ("salt", "server_url", "timestamp") VALUES('SEMVV_bmjJn4zQ', 'https://www.google.com/accounts/o8/ud', 1245927665)[0m
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."identity_url" = 'https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk') LIMIT 1[0m
+Redirected to http://localhost:3000/user/new
+Completed in 452ms (DB: 2) | 302 Found [http://localhost/sessions/complete?openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2009-06-25T11%3A01%3A05ZSEMVV_bmjJn4zQ&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete&openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=ai2gtaoTaB7c%2BhXVWFNys9uSGqQ%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-25 20:01:00) [GET]
+Rendering users/new
+Completed in 7ms (View: 2, DB: 0) | 200 OK [http://localhost/user/new]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-06-25 20:01:03) [PUT]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"J30U3SgLjFLiJzpi2Y1aki5289M7jj8diK5SoQrB/1E=", "/user/create"=>{"nickname"=>"test"}}
+
+ActionController::MethodNotAllowed (Only get requests are allowed.):
+  
+
+Rendered rescues/_trace (26.7ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (method_not_allowed)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-25 23:54:44) [GET]
+Rendering sessions/new
+Completed in 87ms (View: 79, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-25 23:55:08) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/accounts/o8/id", "commit"=>"Sign in", "authenticity_token"=>"PqaSrKXZIFSvWoi35V+bn9LaeNAEw+TGFX5LtBWwfm4="}
+  [4;36;1mOpenIdAuthentication::Association Load (1.2ms)[0m   [0;1mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+Redirected to https://www.google.com/accounts/o8/ud?openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.realm=http%3A%2F%2Flocalhost%3A3000&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete
+Completed in 2968ms (DB: 1) | 302 Found [http://localhost/sessions]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-25 23:55:23) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"c+7pMlS4eE6mxjQoRLCmyjqQuA0=", "openid.response_nonce"=>"2009-06-25T14:55:23ZwdK8npBjAbxDCA", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+  [4;35;1mOpenIdAuthentication::Association Load (1.9ms)[0m   [0mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."handle" = 'AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9' AND "open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+  [4;36;1mOpenIdAuthentication::Nonce Load (0.8ms)[0m   [0;1mSELECT * FROM "open_id_authentication_nonces" WHERE ("open_id_authentication_nonces"."timestamp" = 1245941723 AND "open_id_authentication_nonces"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_nonces"."salt" = 'wdK8npBjAbxDCA') LIMIT 1[0m
+  [4;35;1mOpenIdAuthentication::Nonce Create (1.4ms)[0m   [0mINSERT INTO "open_id_authentication_nonces" ("salt", "server_url", "timestamp") VALUES('wdK8npBjAbxDCA', 'https://www.google.com/accounts/o8/ud', 1245941723)[0m
+  [4;36;1mUser Load (0.6ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."identity_url" = 'https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk') LIMIT 1[0m
+Redirected to http://localhost:3000/user/new
+Completed in 745ms (DB: 5) | 302 Found [http://localhost/sessions/complete?openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2009-06-25T14%3A55%3A23ZwdK8npBjAbxDCA&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete&openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=c%2B7pMlS4eE6mxjQoRLCmyjqQuA0%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-25 23:55:24) [GET]
+Rendering users/new
+Completed in 86ms (View: 51, DB: 0) | 200 OK [http://localhost/user/new]
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-06-25 23:55:31) [PUT]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"PqaSrKXZIFSvWoi35V+bn9LaeNAEw+TGFX5LtBWwfm4=", "/user/create"=>{"nickname"=>"toshiki"}}
+
+ActionController::MethodNotAllowed (Only get requests are allowed.):
+  
+
+Rendered rescues/_trace (111.7ms)
+Rendered rescues/_request_and_response (5.2ms)
+Rendering rescues/layout (method_not_allowed)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-25 23:57:45) [GET]
+Rendering sessions/new
+Completed in 44ms (View: 35, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-25 23:57:50) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/accounts/o8/id", "commit"=>"Sign in", "authenticity_token"=>"PqaSrKXZIFSvWoi35V+bn9LaeNAEw+TGFX5LtBWwfm4="}
+  [4;36;1mOpenIdAuthentication::Association Load (1.1ms)[0m   [0;1mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+Redirected to https://www.google.com/accounts/o8/ud?openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.realm=http%3A%2F%2Flocalhost%3A3000&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete
+Completed in 490ms (DB: 1) | 302 Found [http://localhost/sessions]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-25 23:57:54) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"ZG4wDpA5o2gdbuv6LnaGbTkBrJE=", "openid.response_nonce"=>"2009-06-25T14:57:54Ze-UTLF4MvyavBQ", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+  [4;35;1mOpenIdAuthentication::Association Load (1.9ms)[0m   [0mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."handle" = 'AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9' AND "open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+  [4;36;1mOpenIdAuthentication::Nonce Load (0.6ms)[0m   [0;1mSELECT * FROM "open_id_authentication_nonces" WHERE ("open_id_authentication_nonces"."timestamp" = 1245941874 AND "open_id_authentication_nonces"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_nonces"."salt" = 'e-UTLF4MvyavBQ') LIMIT 1[0m
+  [4;35;1mOpenIdAuthentication::Nonce Create (1.3ms)[0m   [0mINSERT INTO "open_id_authentication_nonces" ("salt", "server_url", "timestamp") VALUES('e-UTLF4MvyavBQ', 'https://www.google.com/accounts/o8/ud', 1245941874)[0m
+  [4;36;1mUser Load (0.5ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."identity_url" = 'https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk') LIMIT 1[0m
+Completed in 2675ms (View: 2, DB: 4) | 200 OK [http://localhost/sessions/complete?openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2009-06-25T14%3A57%3A54Ze-UTLF4MvyavBQ&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete&openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=ZG4wDpA5o2gdbuv6LnaGbTkBrJE%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-25 23:58:36) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"ZG4wDpA5o2gdbuv6LnaGbTkBrJE=", "openid.response_nonce"=>"2009-06-25T14:57:54Ze-UTLF4MvyavBQ", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+  [4;35;1mOpenIdAuthentication::Association Load (1.8ms)[0m   [0mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."handle" = 'AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9' AND "open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+  [4;36;1mOpenIdAuthentication::Nonce Load (0.9ms)[0m   [0;1mSELECT * FROM "open_id_authentication_nonces" WHERE ("open_id_authentication_nonces"."timestamp" = 1245941874 AND "open_id_authentication_nonces"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_nonces"."salt" = 'e-UTLF4MvyavBQ') LIMIT 1[0m
+Completed in 480ms (View: 2, DB: 3) | 200 OK [http://localhost/sessions/complete?openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2009-06-25T14%3A57%3A54Ze-UTLF4MvyavBQ&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete&openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=ZG4wDpA5o2gdbuv6LnaGbTkBrJE%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-25 23:58:48) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"UBCYUKb/FwV9SO3gC7lJuM2j+9Q=", "openid.response_nonce"=>"2009-06-25T14:58:48Z4E_3p9pyg4oqfw", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+  [4;35;1mOpenIdAuthentication::Association Load (3.0ms)[0m   [0mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."handle" = 'AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9' AND "open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+  [4;36;1mOpenIdAuthentication::Nonce Load (0.6ms)[0m   [0;1mSELECT * FROM "open_id_authentication_nonces" WHERE ("open_id_authentication_nonces"."timestamp" = 1245941928 AND "open_id_authentication_nonces"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_nonces"."salt" = '4E_3p9pyg4oqfw') LIMIT 1[0m
+  [4;35;1mOpenIdAuthentication::Nonce Create (0.7ms)[0m   [0mINSERT INTO "open_id_authentication_nonces" ("salt", "server_url", "timestamp") VALUES('4E_3p9pyg4oqfw', 'https://www.google.com/accounts/o8/ud', 1245941928)[0m
+  [4;36;1mUser Load (0.6ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."identity_url" = 'https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk') LIMIT 1[0m
+Redirected to http://localhost:3000/users/new
+Completed in 1130ms (DB: 5) | 302 Found [http://localhost/sessions/complete?openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2009-06-25T14%3A58%3A48Z4E_3p9pyg4oqfw&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete&openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=UBCYUKb%2FFwV9SO3gC7lJuM2j%2B9Q%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-25 23:58:49) [GET]
+Rendering users/new
+
+ActionView::TemplateError (undefined local variable or method `create_user_path' for #<ActionView::Base:0xb7004dc8>) on line #1 of app/views/users/new.html.erb:
+1: <% form_for(create_user_path, :html => {:method => :put}) do |f| %>
+2:   <%= f.text_field 'nickname' %>
+3:   <%= submit_tag 'Create', :disable_with => "Create‚Ä¶" %>
+4: <% end %>
+
+    app/views/users/new.html.erb:1
+
+Rendered rescues/_trace (117.4ms)
+Rendered rescues/_request_and_response (2.8ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-25 23:59:19) [GET]
+Rendering users/new
+Completed in 32ms (View: 17, DB: 0) | 200 OK [http://localhost/users/new]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-25 23:59:23) [PUT]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"PqaSrKXZIFSvWoi35V+bn9LaeNAEw+TGFX5LtBWwfm4=", "/users/create"=>{"nickname"=>"toshiki"}}
+Rendering users/new
+Completed in 32ms (View: 5, DB: 0) | 200 OK [http://localhost/users/new]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-26 00:05:30) [GET]
+Rendering sessions/new
+Completed in 6ms (View: 2, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-26 00:05:36) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/accounts/o8/id", "commit"=>"Sign in", "authenticity_token"=>"PqaSrKXZIFSvWoi35V+bn9LaeNAEw+TGFX5LtBWwfm4="}
+  [4;35;1mOpenIdAuthentication::Association Load (1.1ms)[0m   [0mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+Redirected to https://www.google.com/accounts/o8/ud?openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.realm=http%3A%2F%2Flocalhost%3A3000&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete
+Completed in 396ms (DB: 1) | 302 Found [http://localhost/sessions]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-26 00:05:41) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"lg0l4TuBobG2urAd9eRmNRjkj1A=", "openid.response_nonce"=>"2009-06-25T15:05:41ZQSawcuuJKtuD9g", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+  [4;36;1mOpenIdAuthentication::Association Load (1.1ms)[0m   [0;1mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."handle" = 'AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9' AND "open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+  [4;35;1mOpenIdAuthentication::Nonce Load (0.4ms)[0m   [0mSELECT * FROM "open_id_authentication_nonces" WHERE ("open_id_authentication_nonces"."timestamp" = 1245942341 AND "open_id_authentication_nonces"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_nonces"."salt" = 'QSawcuuJKtuD9g') LIMIT 1[0m
+  [4;36;1mOpenIdAuthentication::Nonce Create (0.5ms)[0m   [0;1mINSERT INTO "open_id_authentication_nonces" ("salt", "server_url", "timestamp") VALUES('QSawcuuJKtuD9g', 'https://www.google.com/accounts/o8/ud', 1245942341)[0m
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."identity_url" = 'https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk') LIMIT 1[0m
+Redirected to http://localhost:3000/users/new
+Completed in 639ms (DB: 2) | 302 Found [http://localhost/sessions/complete?openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2009-06-25T15%3A05%3A41ZQSawcuuJKtuD9g&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete&openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=lg0l4TuBobG2urAd9eRmNRjkj1A%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-26 00:05:42) [GET]
+Rendering users/new
+Completed in 514ms (View: 24, DB: 0) | 200 OK [http://localhost/users/new]
+
+
+Processing UsersController#update (for 127.0.0.1 at 2009-06-26 00:05:47) [PUT]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"PqaSrKXZIFSvWoi35V+bn9LaeNAEw+TGFX5LtBWwfm4=", "user"=>{"nickname"=>"toshiki"}}
+
+ActionController::UnknownAction (No action responded to update. Actions: create and new):
+  
+
+Rendering rescues/layout (not_found)
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-26 00:07:50) [GET]
+Rendering users/new
+
+ActionView::TemplateError (undefined local variable or method `create_user_path' for #<ActionView::Base:0xb7186c50>) on line #1 of app/views/users/new.html.erb:
+1: <% form_for(@user, :url => create_user_path, :html => {:method => :put}) do |f| %>
+2:   <%= f.text_field 'nickname' %>
+3:   <%= submit_tag 'Create', :disable_with => "Create‚Ä¶" %>
+4: <% end %>
+
+    app/views/users/new.html.erb:1
+
+Rendered rescues/_trace (178.2ms)
+Rendered rescues/_request_and_response (0.8ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-26 00:08:04) [GET]
+Rendering users/new
+Completed in 39ms (View: 18, DB: 0) | 200 OK [http://localhost/users/new]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-26 00:08:11) [GET]
+Rendering sessions/new
+Completed in 25ms (View: 4, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-26 00:08:16) [POST]
+  Parameters: {"openid_url"=>"https://www.google.com/accounts/o8/id", "commit"=>"Sign in", "authenticity_token"=>"PqaSrKXZIFSvWoi35V+bn9LaeNAEw+TGFX5LtBWwfm4="}
+  [4;36;1mOpenIdAuthentication::Association Load (4.0ms)[0m   [0;1mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+Redirected to https://www.google.com/accounts/o8/ud?openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.realm=http%3A%2F%2Flocalhost%3A3000&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete
+Completed in 705ms (DB: 4) | 302 Found [http://localhost/sessions]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-26 00:08:21) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"X1fIECIW4p+eEm/7LQbowheyKTA=", "openid.response_nonce"=>"2009-06-25T15:08:21ZJ6TQgLEsAlZ9kQ", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+  [4;35;1mOpenIdAuthentication::Association Load (2.0ms)[0m   [0mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."handle" = 'AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9' AND "open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+  [4;36;1mOpenIdAuthentication::Nonce Load (0.6ms)[0m   [0;1mSELECT * FROM "open_id_authentication_nonces" WHERE ("open_id_authentication_nonces"."timestamp" = 1245942501 AND "open_id_authentication_nonces"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_nonces"."salt" = 'J6TQgLEsAlZ9kQ') LIMIT 1[0m
+  [4;35;1mOpenIdAuthentication::Nonce Create (0.7ms)[0m   [0mINSERT INTO "open_id_authentication_nonces" ("salt", "server_url", "timestamp") VALUES('J6TQgLEsAlZ9kQ', 'https://www.google.com/accounts/o8/ud', 1245942501)[0m
+  [4;36;1mUser Load (0.5ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."identity_url" = 'https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk') LIMIT 1[0m
+Redirected to http://localhost:3000/users/new
+Completed in 534ms (DB: 4) | 302 Found [http://localhost/sessions/complete?openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2009-06-25T15%3A08%3A21ZJ6TQgLEsAlZ9kQ&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete&openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=X1fIECIW4p%2BeEm%2F7LQbowheyKTA%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-26 00:08:21) [GET]
+Rendering users/new
+Completed in 58ms (View: 9, DB: 0) | 200 OK [http://localhost/users/new]
+
+
+Processing UsersController#create (for 127.0.0.1 at 2009-06-26 00:08:26) [PUT]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"PqaSrKXZIFSvWoi35V+bn9LaeNAEw+TGFX5LtBWwfm4=", "user"=>{"nickname"=>"toshiki"}}
+Rendering users/create
+Completed in 50ms (View: 42, DB: 0) | 200 OK [http://localhost/users/create]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-26 00:14:34) [GET]
+Rendering sessions/new
+Completed in 38ms (View: 30, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-26 00:14:37) [POST]
+  Parameters: {"commit"=>"Google", "authenticity_token"=>"PqaSrKXZIFSvWoi35V+bn9LaeNAEw+TGFX5LtBWwfm4="}
+  [4;36;1mOpenIdAuthentication::Association Load (1.1ms)[0m   [0;1mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+Redirected to https://www.google.com/accounts/o8/ud?openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.realm=http%3A%2F%2Flocalhost%3A3000&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete
+Completed in 977ms (DB: 1) | 302 Found [http://localhost/sessions]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-26 00:14:42) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"v6SFR4SOS31R9V1cvUZVI/dTJX8=", "openid.response_nonce"=>"2009-06-25T15:14:42Z6mz4IGjnCXqVRA", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+  [4;35;1mOpenIdAuthentication::Association Load (1.9ms)[0m   [0mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."handle" = 'AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9' AND "open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+  [4;36;1mOpenIdAuthentication::Nonce Load (0.6ms)[0m   [0;1mSELECT * FROM "open_id_authentication_nonces" WHERE ("open_id_authentication_nonces"."timestamp" = 1245942882 AND "open_id_authentication_nonces"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_nonces"."salt" = '6mz4IGjnCXqVRA') LIMIT 1[0m
+  [4;35;1mOpenIdAuthentication::Nonce Create (1.3ms)[0m   [0mINSERT INTO "open_id_authentication_nonces" ("salt", "server_url", "timestamp") VALUES('6mz4IGjnCXqVRA', 'https://www.google.com/accounts/o8/ud', 1245942882)[0m
+  [4;36;1mUser Load (0.5ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."identity_url" = 'https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk') LIMIT 1[0m
+Redirected to http://localhost:3000/users/new
+Completed in 779ms (DB: 4) | 302 Found [http://localhost/sessions/complete?openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2009-06-25T15%3A14%3A42Z6mz4IGjnCXqVRA&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete&openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=v6SFR4SOS31R9V1cvUZVI%2FdTJX8%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-26 00:14:43) [GET]
+Rendering users/new
+Completed in 104ms (View: 60, DB: 0) | 200 OK [http://localhost/users/new]
+
+
+Processing UsersController#create (for 127.0.0.1 at 2009-06-26 00:16:17) [PUT]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"PqaSrKXZIFSvWoi35V+bn9LaeNAEw+TGFX5LtBWwfm4=", "user"=>{"nickname"=>"toshiki"}}
+  [4;35;1mUser Create (0.9ms)[0m   [0mINSERT INTO "users" ("created_at", "nickname", "updated_at", "identity_url") VALUES('2009-06-25 15:16:17', 'toshiki', '2009-06-25 15:16:17', NULL)[0m
+Completed in 44ms (View: 2, DB: 1) | 200 OK [http://localhost/users/create]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-26 00:16:34) [GET]
+Rendering sessions/new
+Completed in 44ms (View: 8, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-26 00:16:37) [POST]
+  Parameters: {"commit"=>"Google", "authenticity_token"=>"PqaSrKXZIFSvWoi35V+bn9LaeNAEw+TGFX5LtBWwfm4="}
+  [4;36;1mOpenIdAuthentication::Association Load (4.6ms)[0m   [0;1mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+Redirected to https://www.google.com/accounts/o8/ud?openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.realm=http%3A%2F%2Flocalhost%3A3000&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete
+Completed in 415ms (DB: 5) | 302 Found [http://localhost/sessions]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-26 00:16:41) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"s3w4C4mp59zqUagGULTpPhm3QAc=", "openid.response_nonce"=>"2009-06-25T15:16:41Z5j4XJtodw3xsYw", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+  [4;35;1mOpenIdAuthentication::Association Load (2.0ms)[0m   [0mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."handle" = 'AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9' AND "open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+  [4;36;1mOpenIdAuthentication::Nonce Load (0.5ms)[0m   [0;1mSELECT * FROM "open_id_authentication_nonces" WHERE ("open_id_authentication_nonces"."timestamp" = 1245943001 AND "open_id_authentication_nonces"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_nonces"."salt" = '5j4XJtodw3xsYw') LIMIT 1[0m
+  [4;35;1mOpenIdAuthentication::Nonce Create (0.7ms)[0m   [0mINSERT INTO "open_id_authentication_nonces" ("salt", "server_url", "timestamp") VALUES('5j4XJtodw3xsYw', 'https://www.google.com/accounts/o8/ud', 1245943001)[0m
+  [4;36;1mUser Load (0.6ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."identity_url" = 'https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk') LIMIT 1[0m
+Redirected to http://localhost:3000/users/new
+Completed in 697ms (DB: 4) | 302 Found [http://localhost/sessions/complete?openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2009-06-25T15%3A16%3A41Z5j4XJtodw3xsYw&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete&openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=s3w4C4mp59zqUagGULTpPhm3QAc%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-26 00:16:42) [GET]
+Rendering users/new
+Completed in 58ms (View: 18, DB: 0) | 200 OK [http://localhost/users/new]
+
+
+Processing UsersController#create (for 127.0.0.1 at 2009-06-26 00:17:03) [PUT]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"PqaSrKXZIFSvWoi35V+bn9LaeNAEw+TGFX5LtBWwfm4=", "user"=>{"nickname"=>"toshiki"}}
+  [4;35;1mUser Create (0.8ms)[0m   [0mINSERT INTO "users" ("created_at", "nickname", "updated_at", "identity_url") VALUES('2009-06-25 15:17:03', 'toshiki', '2009-06-25 15:17:03', 'https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk')[0m
+Completed in 47ms (View: 2, DB: 1) | 200 OK [http://localhost/users/create]
+  [4;36;1mSQL (2.0ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.7ms)[0m   [0mSELECT count(*) AS count_all FROM "users" [0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mSELECT count(*) AS count_all FROM "users" [0m
+  [4;35;1mUser Load (1.2ms)[0m   [0mSELECT * FROM "users" [0m
+  [4;36;1mUser Delete all (103.4ms)[0m   [0;1mDELETE FROM "users" WHERE 1=1[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-26 00:20:30) [GET]
+Rendering sessions/new
+Completed in 18ms (View: 10, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-26 00:20:32) [POST]
+  Parameters: {"commit"=>"Google", "authenticity_token"=>"PqaSrKXZIFSvWoi35V+bn9LaeNAEw+TGFX5LtBWwfm4="}
+  [4;36;1mOpenIdAuthentication::Association Load (1.9ms)[0m   [0;1mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+Redirected to https://www.google.com/accounts/o8/ud?openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.realm=http%3A%2F%2Flocalhost%3A3000&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete
+Completed in 426ms (DB: 2) | 302 Found [http://localhost/sessions]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-26 00:20:35) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"FO6pQFzhmUBHA6QVDkutPBKsTiQ=", "openid.response_nonce"=>"2009-06-25T15:20:35Zz5EtMXn-MaUOXg", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+  [4;35;1mOpenIdAuthentication::Association Load (2.9ms)[0m   [0mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."handle" = 'AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9' AND "open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+  [4;36;1mOpenIdAuthentication::Nonce Load (0.6ms)[0m   [0;1mSELECT * FROM "open_id_authentication_nonces" WHERE ("open_id_authentication_nonces"."timestamp" = 1245943235 AND "open_id_authentication_nonces"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_nonces"."salt" = 'z5EtMXn-MaUOXg') LIMIT 1[0m
+  [4;35;1mOpenIdAuthentication::Nonce Create (0.7ms)[0m   [0mINSERT INTO "open_id_authentication_nonces" ("salt", "server_url", "timestamp") VALUES('z5EtMXn-MaUOXg', 'https://www.google.com/accounts/o8/ud', 1245943235)[0m
+  [4;36;1mUser Load (0.5ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."identity_url" = 'https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk') LIMIT 1[0m
+Redirected to http://localhost:3000/users/new
+Completed in 534ms (DB: 5) | 302 Found [http://localhost/sessions/complete?openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2009-06-25T15%3A20%3A35Zz5EtMXn-MaUOXg&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete&openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=FO6pQFzhmUBHA6QVDkutPBKsTiQ%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2009-06-26 00:20:36) [GET]
+Rendering users/new
+Completed in 60ms (View: 24, DB: 0) | 200 OK [http://localhost/users/new]
+
+
+Processing UsersController#create (for 127.0.0.1 at 2009-06-26 00:20:40) [PUT]
+  Parameters: {"commit"=>"Create", "authenticity_token"=>"PqaSrKXZIFSvWoi35V+bn9LaeNAEw+TGFX5LtBWwfm4=", "user"=>{"nickname"=>"toshiki"}}
+  [4;35;1mUser Create (0.7ms)[0m   [0mINSERT INTO "users" ("created_at", "nickname", "updated_at", "identity_url") VALUES('2009-06-25 15:20:40', 'toshiki', '2009-06-25 15:20:40', 'https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk')[0m
+Completed in 50ms (View: 2, DB: 1) | 200 OK [http://localhost/users/create]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-06-26 00:20:58) [GET]
+Rendering sessions/new
+Completed in 38ms (View: 13, DB: 0) | 200 OK [http://localhost/sessions/new]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-06-26 00:21:00) [POST]
+  Parameters: {"commit"=>"Google", "authenticity_token"=>"PqaSrKXZIFSvWoi35V+bn9LaeNAEw+TGFX5LtBWwfm4="}
+  [4;36;1mOpenIdAuthentication::Association Load (1.8ms)[0m   [0;1mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+Redirected to https://www.google.com/accounts/o8/ud?openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.mode=checkid_setup&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.ns.sreg=http%3A%2F%2Fopenid.net%2Fextensions%2Fsreg%2F1.1&openid.realm=http%3A%2F%2Flocalhost%3A3000&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete
+Completed in 482ms (DB: 2) | 302 Found [http://localhost/sessions]
+
+
+Processing SessionsController#complete (for 127.0.0.1 at 2009-06-26 00:21:04) [GET]
+  Parameters: {"openid.mode"=>"id_res", "openid.op_endpoint"=>"https://www.google.com/accounts/o8/ud", "openid.return_to"=>"http://localhost:3000/sessions/complete", "openid.sig"=>"tj8xRed930ewFRkBjtLtlNNcMJs=", "openid.response_nonce"=>"2009-06-25T15:21:04ZEfWZJy6p_T_6oA", "openid.ns"=>"http://specs.openid.net/auth/2.0", "openid.identity"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk", "openid.assoc_handle"=>"AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9", "openid.signed"=>"op_endpoint,claimed_id,identity,return_to,response_nonce,assoc_handle", "openid.claimed_id"=>"https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk"}
+  [4;35;1mOpenIdAuthentication::Association Load (1.1ms)[0m   [0mSELECT * FROM "open_id_authentication_associations" WHERE ("open_id_authentication_associations"."handle" = 'AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9' AND "open_id_authentication_associations"."server_url" = 'https://www.google.com/accounts/o8/ud') [0m
+  [4;36;1mOpenIdAuthentication::Nonce Load (0.3ms)[0m   [0;1mSELECT * FROM "open_id_authentication_nonces" WHERE ("open_id_authentication_nonces"."timestamp" = 1245943264 AND "open_id_authentication_nonces"."server_url" = 'https://www.google.com/accounts/o8/ud' AND "open_id_authentication_nonces"."salt" = 'EfWZJy6p_T_6oA') LIMIT 1[0m
+  [4;35;1mOpenIdAuthentication::Nonce Create (0.5ms)[0m   [0mINSERT INTO "open_id_authentication_nonces" ("salt", "server_url", "timestamp") VALUES('EfWZJy6p_T_6oA', 'https://www.google.com/accounts/o8/ud', 1245943264)[0m
+  [4;36;1mUser Load (0.6ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."identity_url" = 'https://www.google.com/accounts/o8/id?id=AItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk') LIMIT 1[0m
+Completed in 572ms (View: 1, DB: 3) | 200 OK [http://localhost/sessions/complete?openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&openid.mode=id_res&openid.op_endpoint=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fud&openid.response_nonce=2009-06-25T15%3A21%3A04ZEfWZJy6p_T_6oA&openid.return_to=http%3A%2F%2Flocalhost%3A3000%2Fsessions%2Fcomplete&openid.assoc_handle=AOQobUfKJFm133iTLC3RF5Ao3Du4oBcnmt66jZS35Hu1HUBMhlhdIeE9&openid.signed=op_endpoint%2Cclaimed_id%2Cidentity%2Creturn_to%2Cresponse_nonce%2Cassoc_handle&openid.sig=tj8xRed930ewFRkBjtLtlNNcMJs%3D&openid.identity=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk&openid.claimed_id=https%3A%2F%2Fwww.google.com%2Faccounts%2Fo8%2Fid%3Fid%3DAItOawkNk6RIYgDPI-pKWwnhpox4ibi_7vUapRk]
