@@ -24,7 +24,7 @@ Alternatively, you can use the file-based store, which just relies on on tmp/ope
   OpenIdAuthentication.store = :file
 
 This particular plugin also relies on the fact that the authentication action allows for both POST and GET operations.
-If you're using RESTful authentication, you'll need to explicitly allow for this in your routes.rb. 
+If you're using RESTful authentication, you'll need to explicitly allow for this in your routes.rb.
 
 This plugin relies on Rails Edge revision 6317 or newer.
 
@@ -102,8 +102,8 @@ app/controllers/sessions_controller.rb
           end
         end
       end
-    
-    
+
+
     private
       def successful_login
         session[:user_id] = @current_user.id
@@ -142,7 +142,7 @@ You can support it in your app by changing #open_id_authentication
       def open_id_authentication(identity_url)
         # Pass optional :required and :optional keys to specify what sreg fields you want.
         # Be sure to yield registration, a third argument in the #authenticate_with_open_id block.
-        authenticate_with_open_id(identity_url, 
+        authenticate_with_open_id(identity_url,
             :required => [ :nickname, :email ],
             :optional => :fullname) do |status, identity_url, registration|
           case status
@@ -168,7 +168,7 @@ You can support it in your app by changing #open_id_authentication
           end
         end
       end
-      
+
       # registration is a hash containing the valid sreg keys given above
       # use this to map them to fields of your user model
       def assign_registration_attributes!(registration)
